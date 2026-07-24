@@ -33,7 +33,7 @@ mkdir scripts launch urdf
 
 🗣️ Step 2: Write the Publisher (Talker)
 
-Create a new file named talker.py inside the scripts folder.
+Create a new file named talker.py inside the src folder.
 
 #!/usr/bin/env python3
 import rclpy
