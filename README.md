@@ -107,7 +107,7 @@ dos2unix ~/ros2_ws/src/my_first_package/src/*.py
 Open CMakeLists.txt (located in ~/ros2_ws/src/my_first_package/). Scroll down to
 just above the ament_package() line at the very bottom, and add this:
 
-# Tell CMake to install our Python scripts as executables
+# Tell CMake to install our Python src as executables
 install(PROGRAMS
   src/talker.py
   src/listener.py
