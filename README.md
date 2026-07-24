@@ -350,22 +350,21 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
+import xacro
 
 def generate_launch_description():
     # 1. Find the path to the URDF file
-    pkg_share = get_package_share_directory('my_first_package')
-    urdf_file = os.path.join(pkg_share, 'urdf', 'robot_arm.urdf.xacro')
+    xacro_file = os.path.join(get_package_share_directory('my_first_package'),'urdf', 'robot_arm.urdf.xacro') 
+    doc = xacro.process_file(xacro_file)
+    robot_description = {'robot_description': doc.toxml()}
     
-    # Read the URDF file as a string
-    with open(urdf_file, 'r') as infp:
-        robot_desc = infp.read()
 
     return LaunchDescription([
         # Node 1: Robot State Publisher (Broadcasts the robot's links to ROS)
         Node(
             package='robot_state_publisher',
             executable='robot_state_publisher',
-            parameters=[{'robot_description': robot_desc}]
+            parameters= [{'robot_description': robot_description}]
         ),
         
         # Node 2: Joint State Publisher GUI (Gives you sliders to move the joints!)
