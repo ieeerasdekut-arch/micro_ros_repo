@@ -7,12 +7,10 @@
     <xacro:property
       name="visual_file_direction"
       value="package://my_first_package/urdf/meshes/visual"/>
-      <!-- value="package://hello_moveit/src/sortix_robot_description/meshes/visual"/> -->
 
     <xacro:property
       name="collision_file_direction"
       value="package://my_first_package/urdf/meshes/collision"/>
-      <!-- value="package://hello_moveit/src/sortix_robot_description/meshes/collision"/> -->
 
     <material name="dark_grey">
       <color rgba="0.15 0.15 0.1 1"/>
