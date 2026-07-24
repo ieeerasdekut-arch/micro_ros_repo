@@ -1,0 +1,444 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="sortix_robot">
+
+  <xacro:macro name="sortix_robot" params="prefix=''">
+
+    <xacro:property
+      name="visual_file_direction"
+      value="package://my_first_package/urdf/meshes/visual"/>
+      <!-- value="package://hello_moveit/src/sortix_robot_description/meshes/visual"/> -->
+
+    <xacro:property
+      name="collision_file_direction"
+      value="package://my_first_package/urdf/meshes/collision"/>
+      <!-- value="package://hello_moveit/src/sortix_robot_description/meshes/collision"/> -->
+
+    <material name="dark_grey">
+      <color rgba="0.15 0.15 0.1 1"/>
+    </material>
+    <material name="grey">
+      <color rgba="0.2 0.2 0.2 1"/>
+    </material>
+    <material name="blue">
+      <color rgba="0.0078 0.239 0.823 1" />
+    </material>
+
+    <!-- Anchor the robot to the simulation world -->
+    <link name="world"/>
+    <joint name="world_fixed_joint" type="fixed">
+      <parent link="world"/>
+      <child link="${prefix}link0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <!-- <xacro:property name="prefix" value="sortix_" /> -->
+
+    <!-- ============================= -->
+    <!-- link0 (Base)                          -->
+    <!-- ============================= -->
+    <link name="${prefix}link0">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${visual_file_direction}/link0.dae" scale ="1 1 1"/>
+        </geometry>
+        <material name="grey">
+          <color rgba="0.15 0.15 0.1 1"/>
+        </material>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${collision_file_direction}/link0.STL" scale ="1 1 1"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <origin xyz="-0.000914616748248252 0.0308804211192079 0.000563973631153566"  rpy="0 0 0" />
+        <mass  value="0.199548034929985" />
+        <inertia    ixx="0.000124925715170626"  ixy="-7.29387980643628E-08"  ixz="-2.71280807091132E-07"
+                    iyy="0.00027925076382033"   iyz="8.57320699235363E-07"   izz="0.000206894585655822" />
+      </inertial>
+
+    </link>
+
+
+    <!-- ============================= -->
+    <!-- Link1                        -->
+    <!-- ============================= -->
+    <link name="${prefix}link1">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${visual_file_direction}/link1.dae" scale ="1 1 1"/>
+        </geometry>
+        <material name="grey" />
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${collision_file_direction}/link1.STL" scale ="1 1 1"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <origin xyz="0.000500465465171303 0.045795751385422 -3.29366537812211E-05" rpy="0 0 0" />
+        <mass  value="0.0647285312592185" />
+        <inertia  ixx="1.93336830845547E-05"   ixy="2.56571602643507E-07"   ixz="4.74629949097521E-09"
+                  iyy="1.22233045296973E-05"   iyz="5.92612722797813E-07"   izz="2.28084092658359E-05" />
+      </inertial>
+
+    </link>
+
+    <joint name="${prefix}joint1" type="revolute">
+      <parent link="${prefix}link0"/>
+      <child link="${prefix}link1"/>
+      <origin xyz="-0.011 0 0.049" rpy="1.5708 0 0.523599" />
+      <axis xyz="0 1 0"/>
+        <limit lower="0" upper="5.23599" effort="4" velocity="5"/>
+      <!-- <limit lower="5.23599" upper="0.349066" effort="4" velocity="5"/> -->
+      <dynamics damping="0.1"/>
+    </joint>
+
+
+
+    <!-- ============================= -->
+    <!-- Link2                        -->
+    <!-- ============================= -->
+    <link name="${prefix}link2">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${visual_file_direction}/link2.dae" scale ="1 1 1"/>
+        </geometry>
+        <material name="grey" />
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${collision_file_direction}/link2.STL" scale ="1 1 1"/>
+        </geometry>
+      </collision>
+
+    <inertial>
+      <origin  xyz="0.000468398051078444 0.0737095878658311 2.20093076735485E-05"  rpy="0 0 0" />
+      <mass   value="0.0737124807722506" />
+      <inertia   ixx="5.06179888957108E-05"   ixy="5.88927432047404E-07"  ixz="-2.75301812807799E-08"
+                 iyy="2.14652983341695E-05"  iyz="1.37143080833875E-06" izz="5.92769046404828E-05" />
+    </inertial>
+    </link>
+
+
+    <joint name="${prefix}joint2" type="revolute">
+      <parent link="${prefix}link1"/>
+      <child link="${prefix}link2"/>
+       <origin  xyz="0 0.065 0" rpy="-0.523599 0 3.1416" />
+      <axis xyz="-1 0 0"/>
+      <limit lower="1.74533" upper="4.01426" effort="4" velocity="5" />
+      <dynamics damping="0.1"/>
+    </joint>
+
+
+    <!-- ============================= -->
+    <!--   Link3                        -->
+    <!-- ============================= -->
+    <link name="${prefix}link3">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${visual_file_direction}/link3.dae" scale ="1 1 1"/>
+        </geometry>
+        <material name="grey" />
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${collision_file_direction}/link3.STL" scale ="1 1 1"/>
+        </geometry>
+      </collision>
+
+    <inertial>
+      <origin xyz="0.000468398051078452 0.0737095878658311 2.44929678077526E-05" rpy="0 0 0" />
+      <mass  value="0.0737124807722506" />
+      <inertia   ixx="5.06179888957109E-05" ixy="5.88927432047437E-07"  ixz="-2.75301812806267E-08"
+                 iyy="2.14652983341695E-05"  iyz="1.37143080833876E-06"  izz="5.92769046404829E-05" />
+    </inertial>
+
+    </link>
+
+    <joint name="${prefix}joint3" type="revolute">
+      <parent link="${prefix}link2"/>
+      <child link="${prefix}link3"/>
+      <origin  xyz="0 0.1025 0" rpy="-0.523588 3.14159 3.1416" />
+      <axis xyz="-1 0 0"/>
+      <limit lower="1.74533" upper="4.01426" effort="4" velocity="5" />
+      <dynamics damping="0.1"/>
+    </joint>
+
+  
+    <!-- ============================= -->
+    <!-- Link4                         -->
+    <!-- ============================= -->
+    <link name="${prefix}link4">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${visual_file_direction}/link4.dae" scale ="1 1 1"/>
+        </geometry>
+        <material name="grey" />
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${collision_file_direction}/link4.STL" scale ="1 1 1"/>
+        </geometry>
+      </collision>
+
+     <inertial>
+      <origin xyz="7.00088753405725E-05 0.0417026304214911 0.002347732801147" rpy="0 0 0" />
+      <mass  value="0.0294384031068519" />
+      <inertia  ixx="1.96693553117083E-05"    ixy="-7.6034787486218E-12" ixz="8.16105975743595E-11"
+                iyy="1.11965908986346E-05" iyz="-2.66205657272791E-07" izz="2.4094122833777E-05" />
+    </inertial>
+    </link>
+
+    <joint name="${prefix}joint4" type="revolute">
+        <parent link="${prefix}link3"/>
+        <child link="${prefix}link4"/>
+        <origin  xyz="0 0.1025 0" rpy="3.665188 3.14159 0" />
+        <axis xyz="1 0 0"/>
+        <limit lower="1.22173" upper="4.01426" effort="4" velocity="5" />
+        <dynamics damping="0.1"/>
+    </joint>
+
+
+    <!-- ============================= -->
+    <!-- Link5                        -->
+    <!-- ============================= -->
+    <link name="${prefix}link5">
+      <inertial>
+        <origin   xyz="-0.00474016703919584 0.0133576389477266 4.34032173049492E-10"  rpy="0 0 0" />
+        <mass value="0.1" /> <!-- Increased from 0.007 -->
+        <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                 iyy="0.0001" iyz="0.0" izz="0.0001" />
+      </inertial>
+      <visual>
+        <origin   xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="${visual_file_direction}/link5.dae" scale ="1 1 1"/>
+        </geometry>
+        <material name="blue">
+          <color rgba="0.00784313725490196 0.23921568627451 0.823529411764706 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin   xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+        <mesh filename="${collision_file_direction}/link5.STL" scale ="1 1 1"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}joint5" type="fixed">
+      <origin xyz="7E-05 0.046 0.01"  rpy="6.28319 -1.5708 6.28319" />
+      <parent  link="${prefix}link4" />
+      <child link="${prefix}link5" />
+    </joint>
+ 
+
+
+    <link name="${prefix}link6">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.05"/>
+        <inertia ixx="1.675e-05" ixy="0.0" ixz="0.0"
+                iyy="2.083e-05" iyz="0.0" izz="1.05e-07"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.025 0.001 0.02"/>
+        </geometry>
+        <material name="blue">
+          <color rgba="0.00784313725490196 0.23921568627451 0.823529411764706 1" />
+        </material>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.025 0.001 0.02"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}joint6" type="fixed">
+      <origin xyz="0 0.028 0"  rpy="0 1.5708 0" />
+      <!-- <origin  xyz="0 0.1025 0" rpy="2.617988 0 0" /> -->
+      <parent  link="${prefix}link5" />
+      <child link="${prefix}link6" />
+    </joint>
+
+  
+
+    <!--Tool link-->
+      <!-- <link name="${prefix}eef_link"/>
+      <joint name="${prefix}tcp_fixed" type="fixed">
+        <origin xyz="0 0.069878460502924 0" rpy="-0.0138311908870442 0 0" />
+        <parent link="link4"/>
+        <child link="${prefix}eef_link"/>
+      </joint> -->
+
+
+    <!-- TCP frame on eef_link -->
+    <link name="${prefix}eef_link_tcp"/>
+    <joint name="${prefix}eef_link_tcp_joint" type="fixed">
+      <origin  xyz="0 0.03 0 "  rpy="0 0 0"/>
+      <parent link="${prefix}link6"/>
+      <child link="${prefix}eef_link_tcp"/>
+    </joint>
+  
+
+   <!-- ============================= -->
+    <!-- Gripper fingers               -->
+    <!-- ============================= -->
+
+    <link name="${prefix}finger1">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${visual_file_direction}/finger1.dae" scale ="1 1 1"/>
+        </geometry>
+        <material name="grey" />
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${collision_file_direction}/finger1.STL" scale ="1 1 1"/>
+        </geometry>
+      </collision>
+
+      <!-- <inertial>
+        <origin xyz="0.013 0.022 0.017" rpy="0 0 0" />
+        <mass value="0.05" /> Increased from 0.01
+        <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                iyy="0.0001" iyz="0.0" izz="0.0001" />
+      </inertial> -->
+
+      <inertial>
+        <origin xyz="0.013 0.022 0.017" rpy="0 0 0" />
+        <mass  value="0.0106115739938268" />
+        <inertia  ixx="2.64584898744647E-06"  ixy="1.85400068592276E-07"  ixz="-9.25241773092679E-11"
+                  iyy="1.3024368711556E-06"  iyz="-6.15075189811524E-11"  izz="2.08791646012211E-06" />
+      </inertial>
+      
+    </link>
+
+    <!-- Prismatic finger joint (left) -->
+    <joint name="${prefix}finger1_joint" type="prismatic">
+      <parent link="${prefix}link6"/>
+      <child link="${prefix}finger1"/>
+      <origin  xyz="-0.024912 -0.004 0.017784" rpy="-3.1416 0 3.1416" /> 
+      <axis xyz="1 0 0"/>
+      <limit lower="-0.019" upper="0.007" effort="1" velocity="2"/>
+      <dynamics damping="0.001" friction="0.001"/> <!-- <dynamics damping="0.001"/> <dynamics damping="0.1"/> -->
+    </joint>
+
+  
+    <link name="${prefix}finger2">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${visual_file_direction}/finger2.dae" scale ="1 1 1"/>
+        </geometry>
+        <material name="grey" />
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${collision_file_direction}/finger2.STL" scale ="1 1 1"/>
+        </geometry>
+      </collision>
+
+      <!-- <inertial>
+        <origin xyz="0.013 0.022 0.017" rpy="0 0 0" />
+        <mass value="0.05" /> Increased from 0.01
+        <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                iyy="0.0001" iyz="0.0" izz="0.0001" />
+      </inertial> -->
+      <inertial>
+        <origin xyz="0.013 0.022 0.017" rpy="0 0 0" />
+        <mass  value="0.0106115739938268" />
+        <inertia  ixx="2.64584898744647E-06"  ixy="1.85400068592276E-07"  ixz="-9.25241773092679E-11"
+                  iyy="1.3024368711556E-06"  iyz="-6.15075189811524E-11"  izz="2.08791646012211E-06" />
+      </inertial>
+
+    </link>
+
+    <!-- Prismatic finger joint (right), mimics finger1_joint in opposite direction -->
+   <joint name="${prefix}finger2_joint_mimic" type="prismatic">
+        <parent link="${prefix}link6"/>
+        <child link="${prefix}finger2"/>
+        <origin xyz="0.025052 -0.004 -0.017784"  rpy="0 0 0" />
+        <axis xyz="-1 0 0"/>
+        <limit lower="-0.007" upper="0.019" effort="1" velocity="2"/>
+        <dynamics damping="0.001" friction="0.001"/> <!--  <dynamics damping="0.001"/>  <dynamics damping="0.1"/> -->
+        <mimic joint="${prefix}finger1_joint" multiplier="-1"/>
+   </joint>
+
+   <link name="depth_camera_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.03 0.15 0.08"/>
+            </geometry>
+            <material name="blue" />
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.03 0.15 0.08"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="0.01"/>
+            <inertia
+                ixx="0.0001"
+                ixy="0"
+                ixz="0"
+                iyy="0.0001"
+                iyz="0"
+                izz="0.0001"/>
+        </inertial>
+
+    </link>
+
+    <joint name="depth_camera_joint" type="fixed">
+        <parent link="sortix_link0"/>
+        <child link="depth_camera_link"/>
+        <origin xyz="0.0 0.0 0.7" rpy="0 0 0"/>
+    </joint>
+
+    <link name="depth_camera_link_optical"/>
+
+    <joint name="depth_camera_optical_joint" type="fixed">
+        <parent link="sortix_link0"/>
+        <child link="depth_camera_link_optical"/>
+        <!-- Converts standard frame to standard optical frame (-90deg Roll, -90deg Yaw) -->
+        <origin xyz="0.0 0.0 0.7" rpy="${-pi/2} 0 ${-pi/2}"/>
+    </joint>
+
+   </xacro:macro>
+  <xacro:sortix_robot prefix="sortix_"/>
+</robot>
