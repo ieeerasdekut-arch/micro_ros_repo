@@ -354,7 +354,7 @@ from launch_ros.actions import Node
 def generate_launch_description():
     # 1. Find the path to the URDF file
     pkg_share = get_package_share_directory('my_first_package')
-    urdf_file = os.path.join(pkg_share, 'urdf', 'robot_arm.urdf')
+    urdf_file = os.path.join(pkg_share, 'urdf', 'robot_arm.urdf.xacro')
     
     # Read the URDF file as a string
     with open(urdf_file, 'r') as infp:
