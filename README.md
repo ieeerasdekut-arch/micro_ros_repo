@@ -64,7 +64,7 @@ if __name__ == '__main__':
 
 👂 Step 3: Write the Subscriber (Listener)
 
-Create a new file named listener.py inside the scripts folder.
+Create a new file named listener.py inside the src folder.
 
 #!/usr/bin/env python3
 import rclpy
@@ -96,11 +96,11 @@ Linux needs permission to run these files. If you are on Windows/WSL, you also
 need to fix line endings. Run these commands:
 
 # Give execution permissions
-chmod +x ~/ros2_ws/src/my_first_package/scripts/*.py
+chmod +x ~/ros2_ws/src/my_first_package/src/*.py
 
 # Fix Windows CRLF line endings to Linux LF line endings (Fixes the \r error)
 sudo apt update && sudo apt install dos2unix
-dos2unix ~/ros2_ws/src/my_first_package/scripts/*.py
+dos2unix ~/ros2_ws/src/my_first_package/src/*.py
 
 ⚙️ Step 4: Configure CMakeLists.txt
 
