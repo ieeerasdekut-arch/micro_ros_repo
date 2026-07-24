@@ -29,7 +29,7 @@ ros2 pkg create --build-type ament_cmake my_first_package --dependencies rclpy s
 
 # 3. Go into the package and create directories for our scripts and launch files
 cd my_first_package
-mkdir scripts launch urdf
+mkdir src launch urdf
 
 🗣️ Step 2: Write the Publisher (Talker)
 
@@ -109,8 +109,8 @@ just above the ament_package() line at the very bottom, and add this:
 
 # Tell CMake to install our Python scripts as executables
 install(PROGRAMS
-  scripts/talker.py
-  scripts/listener.py
+  src/talker.py
+  src/listener.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
