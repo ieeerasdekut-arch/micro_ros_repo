@@ -183,6 +183,42 @@ Your Mission: Use a Launch file to display a 3D digital robot arm in RViz!
 
 💡 Launch File Hints: You need to launch three specific nodes. Here is the
 framework to help you!
+import os
+from ament_index_python.packages import get_package_share_directory
+from launch import LaunchDescription
+from launch_ros.actions import Node
+
+def generate_launch_description():
+    # 1. Find the path to the URDF file
+    pkg_share = get_package_share_directory('my_first_package')
+    urdf_file = os.path.join(pkg_share, 'urdf', 'robot_arm.urdf')
+    
+    # Read the URDF file as a string
+    with open(urdf_file, 'r') as infp:
+        robot_desc = infp.read()
+
+    return LaunchDescription([
+        # Node 1: Robot State Publisher (Broadcasts the robot's links to ROS)
+        Node(
+            package='robot_state_publisher',
+            executable='robot_state_publisher',
+            parameters=[{'robot_description': robot_desc}]
+        ),
+        
+        # Node 2: Joint State Publisher GUI (Gives you sliders to move the joints!)
+        Node(
+            package='joint_state_publisher_gui',
+            executable='joint_state_publisher_gui'
+        ),
+
+        # Node 3: RViz2 (The 3D Visualization tool)
+        Node(
+            package='rviz2',
+            executable='rviz2'
+        )
+    ])
+
+Created for the IEEE RAS Robotics Workshop Series.
 
 
 
